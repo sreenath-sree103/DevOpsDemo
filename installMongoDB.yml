@@ -1,0 +1,23 @@
+---
+- hosts: webservers
+  become: true
+ 
+  tasks:
+  - name: Update the apt cache
+    apt:
+      update_cache: yes
+ 
+  - name: Installation on packages
+    apt:
+      name:  "{{ item }}"
+      state: present
+    loop:
+      - mongodb
+      - zip
+      - unzip
+      - vsftpd
+ 
+  - name: Check mongodb version
+ 
+    command: mongo -version
+    register: mongo_version
