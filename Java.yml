@@ -1,0 +1,24 @@
+---
+- hosts: webservers
+  become: true
+
+  tasks:
+  - name: update the apt cache
+    apt: 
+      update_cache: yes
+
+  - name: Install OpenJDK java
+    apt: 
+      name: open-jdk-11-jdk
+      state: present
+
+  # To uninstall use below block
+  # - name: Install OpenJDK java
+  #   apt: 
+  #     name: open-jdk-11-jdk
+  #     state: absent
+  #     autoremove: yes
+  #     purge: yes
+
+  - name: SET JAVA_HOME
+    shell: sudo echo "export JAVA_HOME=/usr/lib/jvm//java-11-openjdk-amd64" >> ~/.bashrc
