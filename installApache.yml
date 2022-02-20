@@ -2,6 +2,7 @@
 - hosts: webservers
   become: true
   tasks:
+   
     - name: install apache2
       apt:
         name: apache2
@@ -14,6 +15,11 @@
         state: present  
       notify:
          - restart apache2
+ 
+    - name: Copy index page
+      copy:
+        src: index.html
+        dest: /home/sreenathsfisglo/ansible_demo/index.html
  
   handlers:
     - name: restart apache2
